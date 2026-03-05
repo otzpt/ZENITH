@@ -1,4 +1,11 @@
 @echo off
+:: ================================================================
+:: ZENITH - Windows Performance Optimizer
+:: by @otzpt
+:: ----------------------------------------------------------------
+:: Based on Platinum Optimizer by @STEFANO83223 & @Aledect
+:: Modified, extended and rebranded by @otzpt
+:: ================================================================
 chcp 65001 >nul
 cls
 :: ======================
