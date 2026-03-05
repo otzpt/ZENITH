@@ -6907,6 +6907,9 @@ goto main_menu
 :: ======================
 :: APP INSTALLER
 :: ======================
+:: ======================
+:: APP INSTALLER
+:: ======================
 :app_installer
 cls
 color 0B
@@ -6917,6 +6920,7 @@ if "%LNG%"=="PT" (echo    INSTALADOR DE APPS) else (echo    APP INSTALLER)
 echo   ================================================================
 echo.
 if "%LNG%"=="PT" (echo    Usa winget - requer internet.) else (echo    Uses winget - requires internet.)
+if "%LNG%"=="PT" (echo    Apps ja instaladas serao ignoradas.) else (echo    Already installed apps will be skipped.)
 echo.
 echo    ----------------  BROWSERS  ----------------
 echo    [1]  Google Chrome
@@ -6925,7 +6929,7 @@ echo    [3]  Microsoft Edge
 echo    [4]  Brave Browser
 echo    [5]  Opera GX
 echo.
-echo    ----------------  COMUNICATION  ------------
+echo    ----------------  COMMUNICATION  -----------
 echo    [6]  Discord
 echo    [7]  Telegram
 echo    [8]  WhatsApp
@@ -6974,7 +6978,7 @@ if /i "%ac%"=="A" goto inst_all
 if "%ac%"=="0"  goto main_menu
 goto app_installer
 
-:: winget check - called before each install
+:: ---- winget check ----
 :chk_winget
 winget --version >nul 2>&1
 if not errorlevel 1 exit /b
@@ -6989,150 +6993,196 @@ if errorlevel 1 (
 echo   [OK] winget ready
 exit /b
 
+:: ---- skip-if-installed subroutine ----
+:: set INST_ID and INST_NAME before calling
+:do_install
+winget list --id %INST_ID% -e 2>nul | findstr /i "%INST_ID%" >nul 2>&1
+if not errorlevel 1 (
+    if "%LNG%"=="PT" (echo   [SKIP] %INST_NAME% ja esta instalado.) else (echo   [SKIP] %INST_NAME% already installed.)
+    exit /b
+)
+if "%LNG%"=="PT" (echo   A instalar %INST_NAME%...) else (echo   Installing %INST_NAME%...)
+winget install --id %INST_ID% -e --accept-source-agreements --accept-package-agreements --scope machine
+exit /b
+
 :inst_chrome
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar Google Chrome...) else (echo   Installing Google Chrome...)
-winget install --id Google.Chrome -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Google.Chrome
+set INST_NAME=Google Chrome
+call :do_install
 pause & goto app_installer
 
 :inst_firefox
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar Mozilla Firefox...) else (echo   Installing Mozilla Firefox...)
-winget install --id Mozilla.Firefox -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Mozilla.Firefox
+set INST_NAME=Mozilla Firefox
+call :do_install
 pause & goto app_installer
 
 :inst_edge
 call :chk_winget
-if "%LNG%"=="PT" (echo   A reinstalar Microsoft Edge...) else (echo   Reinstalling Microsoft Edge...)
-winget install --id Microsoft.Edge -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Microsoft.Edge
+set INST_NAME=Microsoft Edge
+call :do_install
 pause & goto app_installer
 
 :inst_brave
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar Brave Browser...) else (echo   Installing Brave Browser...)
-winget install --id Brave.Brave -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Brave.Brave
+set INST_NAME=Brave Browser
+call :do_install
 pause & goto app_installer
 
 :inst_operagx
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar Opera GX...) else (echo   Installing Opera GX...)
-winget install --id Opera.OperaGX -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Opera.OperaGX
+set INST_NAME=Opera GX
+call :do_install
 pause & goto app_installer
 
 :inst_discord
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar Discord...) else (echo   Installing Discord...)
-winget install --id Discord.Discord -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Discord.Discord
+set INST_NAME=Discord
+call :do_install
 pause & goto app_installer
 
 :inst_telegram
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar Telegram...) else (echo   Installing Telegram...)
-winget install --id Telegram.TelegramDesktop -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Telegram.TelegramDesktop
+set INST_NAME=Telegram
+call :do_install
 pause & goto app_installer
 
 :inst_whatsapp
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar WhatsApp...) else (echo   Installing WhatsApp...)
-winget install --id 9NKSQGP7F2NH -e --accept-source-agreements --accept-package-agreements
+set INST_ID=9NKSQGP7F2NH
+set INST_NAME=WhatsApp
+call :do_install
 pause & goto app_installer
 
 :inst_steam
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar Steam...) else (echo   Installing Steam...)
-winget install --id Valve.Steam -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Valve.Steam
+set INST_NAME=Steam
+call :do_install
 pause & goto app_installer
 
 :inst_epic
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar Epic Games Launcher...) else (echo   Installing Epic Games Launcher...)
-winget install --id EpicGames.EpicGamesLauncher -e --accept-source-agreements --accept-package-agreements
+set INST_ID=EpicGames.EpicGamesLauncher
+set INST_NAME=Epic Games Launcher
+call :do_install
 pause & goto app_installer
 
 :inst_ubisoft
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar Ubisoft Connect...) else (echo   Installing Ubisoft Connect...)
-winget install --id Ubisoft.Connect -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Ubisoft.Connect
+set INST_NAME=Ubisoft Connect
+call :do_install
 pause & goto app_installer
 
 :inst_ea
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar EA App...) else (echo   Installing EA App...)
-winget install --id ElectronicArts.EADesktop -e --accept-source-agreements --accept-package-agreements
+set INST_ID=ElectronicArts.EADesktop
+set INST_NAME=EA App
+call :do_install
 pause & goto app_installer
 
 :inst_7zip
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar 7-Zip...) else (echo   Installing 7-Zip...)
-winget install --id 7zip.7zip -e --accept-source-agreements --accept-package-agreements
+set INST_ID=7zip.7zip
+set INST_NAME=7-Zip
+call :do_install
 pause & goto app_installer
 
 :inst_vlc
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar VLC...) else (echo   Installing VLC...)
-winget install --id VideoLAN.VLC -e --accept-source-agreements --accept-package-agreements
+set INST_ID=VideoLAN.VLC
+set INST_NAME=VLC
+call :do_install
 pause & goto app_installer
 
 :inst_obs
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar OBS Studio...) else (echo   Installing OBS Studio...)
-winget install --id OBSProject.OBSStudio -e --accept-source-agreements --accept-package-agreements
+set INST_ID=OBSProject.OBSStudio
+set INST_NAME=OBS Studio
+call :do_install
 pause & goto app_installer
 
 :inst_vscode
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar VS Code...) else (echo   Installing Visual Studio Code...)
-winget install --id Microsoft.VisualStudioCode -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Microsoft.VisualStudioCode
+set INST_NAME=Visual Studio Code
+call :do_install
 pause & goto app_installer
 
 :inst_spotify
 call :chk_winget
-if "%LNG%"=="PT" (echo   A instalar Spotify...) else (echo   Installing Spotify...)
-winget install --id Spotify.Spotify -e --accept-source-agreements --accept-package-agreements
+set INST_ID=Spotify.Spotify
+set INST_NAME=Spotify
+call :do_install
 pause & goto app_installer
 
 :inst_all
 call :chk_winget
 cls
-if "%LNG%"=="PT" (echo   A instalar todas as apps... aguarda.) else (echo   Installing all apps... please wait.)
+if "%LNG%"=="PT" (echo   A verificar e instalar apps... aguarda.) else (echo   Checking and installing apps... please wait.)
 echo.
-echo   [1/17]  Chrome...
-winget install --id Google.Chrome -e --accept-source-agreements --accept-package-agreements >nul 2>&1
-echo   [2/17]  Firefox...
-winget install --id Mozilla.Firefox -e --accept-source-agreements --accept-package-agreements >nul 2>&1
-echo   [3/17]  Edge...
-winget install --id Microsoft.Edge -e --accept-source-agreements --accept-package-agreements >nul 2>&1
-echo   [4/17]  Brave...
-winget install --id Brave.Brave -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+echo   [1/17]  Google Chrome...
+winget list --id Google.Chrome -e 2>nul | findstr /i "Google.Chrome" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Google.Chrome -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
+echo   [2/17]  Mozilla Firefox...
+winget list --id Mozilla.Firefox -e 2>nul | findstr /i "Mozilla.Firefox" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Mozilla.Firefox -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
+echo   [3/17]  Microsoft Edge...
+winget list --id Microsoft.Edge -e 2>nul | findstr /i "Microsoft.Edge" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Microsoft.Edge -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
+echo   [4/17]  Brave Browser...
+winget list --id Brave.Brave -e 2>nul | findstr /i "Brave.Brave" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Brave.Brave -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [5/17]  Opera GX...
-winget install --id Opera.OperaGX -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id Opera.OperaGX -e 2>nul | findstr /i "Opera.OperaGX" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Opera.OperaGX -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [6/17]  Discord...
-winget install --id Discord.Discord -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id Discord.Discord -e 2>nul | findstr /i "Discord.Discord" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Discord.Discord -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [7/17]  Telegram...
-winget install --id Telegram.TelegramDesktop -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id Telegram.TelegramDesktop -e 2>nul | findstr /i "Telegram.TelegramDesktop" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Telegram.TelegramDesktop -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [8/17]  WhatsApp...
-winget install --id 9NKSQGP7F2NH -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id 9NKSQGP7F2NH -e 2>nul | findstr /i "9NKSQGP7F2NH" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id 9NKSQGP7F2NH -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [9/17]  Steam...
-winget install --id Valve.Steam -e --accept-source-agreements --accept-package-agreements >nul 2>&1
-echo   [10/17] Epic Games...
-winget install --id EpicGames.EpicGamesLauncher -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id Valve.Steam -e 2>nul | findstr /i "Valve.Steam" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Valve.Steam -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
+echo   [10/17] Epic Games Launcher...
+winget list --id EpicGames.EpicGamesLauncher -e 2>nul | findstr /i "EpicGames.EpicGamesLauncher" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id EpicGames.EpicGamesLauncher -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [11/17] Ubisoft Connect...
-winget install --id Ubisoft.Connect -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id Ubisoft.Connect -e 2>nul | findstr /i "Ubisoft.Connect" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Ubisoft.Connect -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [12/17] EA App...
-winget install --id ElectronicArts.EADesktop -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id ElectronicArts.EADesktop -e 2>nul | findstr /i "ElectronicArts.EADesktop" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id ElectronicArts.EADesktop -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [13/17] 7-Zip...
-winget install --id 7zip.7zip -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id 7zip.7zip -e 2>nul | findstr /i "7zip.7zip" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id 7zip.7zip -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [14/17] VLC...
-winget install --id VideoLAN.VLC -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id VideoLAN.VLC -e 2>nul | findstr /i "VideoLAN.VLC" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id VideoLAN.VLC -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [15/17] OBS Studio...
-winget install --id OBSProject.OBSStudio -e --accept-source-agreements --accept-package-agreements >nul 2>&1
-echo   [16/17] VS Code...
-winget install --id Microsoft.VisualStudioCode -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id OBSProject.OBSStudio -e 2>nul | findstr /i "OBSProject.OBSStudio" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id OBSProject.OBSStudio -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
+echo   [16/17] Visual Studio Code...
+winget list --id Microsoft.VisualStudioCode -e 2>nul | findstr /i "Microsoft.VisualStudioCode" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Microsoft.VisualStudioCode -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo   [17/17] Spotify...
-winget install --id Spotify.Spotify -e --accept-source-agreements --accept-package-agreements >nul 2>&1
+winget list --id Spotify.Spotify -e 2>nul | findstr /i "Spotify.Spotify" >nul 2>&1
+if not errorlevel 1 (echo   [SKIP] already installed) else (winget install --id Spotify.Spotify -e --accept-source-agreements --accept-package-agreements --scope machine >nul 2>&1 && echo   [OK] || echo   [FAIL])
 echo.
 echo   ================================================================
-if "%LNG%"=="PT" (echo    TODAS AS APPS INSTALADAS!) else (echo    ALL APPS INSTALLED!)
+if "%LNG%"=="PT" (echo    CONCLUIDO! Apps ja instaladas foram ignoradas.) else (echo    DONE! Already installed apps were skipped.)
 echo   ================================================================
 echo.
 pause
