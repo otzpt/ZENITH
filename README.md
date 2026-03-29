@@ -1,142 +1,149 @@
-<div align="center">
+# VOIDTUNE
+> Windows optimization suite for gamers and power users.
 
-# ⚡ ZENITH
-### Windows Performance Optimizer
+[![Version](https://img.shields.io/badge/version-0.7-7c3aed?style=flat-square)](https://github.com/otzpt_dev/voidtune/releases)
+[![License](https://img.shields.io/badge/license-GPL%20v3-22c55e?style=flat-square)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-38bdf8?style=flat-square)]()
+[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue?style=flat-square)]()
 
-**Windows out of the box is a mess. Zenith fixes that.**
-CPU, GPU, network, RAM, privacy — everything tuned the way it should've been from day one.
-You choose how far you push it. Your PC, your rules.
-
-![Version](https://img.shields.io/badge/version-1.5_beta-brightgreen)
-![Platform](https://img.shields.io/badge/platform-Windows_10%2F11-blue)
-![Language](https://img.shields.io/badge/language-PT_%7C_EN-orange)
-![Admin](https://img.shields.io/badge/requires-Administrator-red)
-
-</div>
+**[🌐 Website](https://voidtune-optimizer.netlify.app/) • [📦 Releases](https://github.com/otzpt_dev/voidtune/releases) • [🐛 Issues](https://github.com/otzpt_dev/voidtune/issues)**
 
 ---
 
-## 🚀 What is Zenith?
+VOIDTUNE is a free, open-source Windows optimizer and debloater built with PowerShell 5.1+ and WPF/XAML. It gives gamers and power users a clean, dark UI to apply system tweaks, manage services, monitor hardware, and install apps — all in one place, without touching the command line.
 
-Zenith is a Windows performance optimizer built for gamers and power users who are tired of Windows holding them back. It's a collection of tweaks, registry edits and optimizations that actually make a difference — now in one place, with a clean interface and full control over what gets applied.
-
-No bloat. No silent uninstalls. No surprises. Just your PC running the way it should.
+Visit the official site at **[voidtune-optimizer.netlify.app](https://voidtune-optimizer.netlify.app/)** for more info and screenshots.
 
 ---
 
-## ✨ Features
+## Features
 
-| Module | What it does |
-|--------|-------------|
-| 🔵 **CPU Tweaks** | Intel & AMD optimization — safe and extreme modes |
-| 🟣 **GPU Tweaks** | NVIDIA, AMD and Intel GPU performance tuning |
-| 🔴 **System Debloater** | Blocks telemetry hosts, clears tracking |
-| 🟡 **Services Optimizer** | Disable/re-enable Windows services selectively |
-| 🟢 **Network Optimizer** | TCP/IP stack tuning, lower latency, faster DNS |
-| 🔵 **RAM & Memory** | Priority tweaks, memory management, game mode |
-| 🔒 **Privacy & Security** | Kill telemetry, block ads, lock camera/mic/location |
-| 📦 **App Installer** | Download Chrome, Discord, Steam and more via winget |
-| ⚡ **Apply All** | One-click safe or extreme optimization |
-| ↩️ **Restore Tweaks** | Undo everything and go back to Windows defaults |
+### Tweaks
+Apply and revert registry tweaks, power plan changes, and system settings across multiple categories:
+- **CPU** — High performance plan, Win32 priority, timer resolution, core parking, boost modes
+- **GPU** — Hardware GPU scheduling, TDR delay, Direct Flip, MPO disable, GPU priority
+- **RAM** — Disable paging executive, large system cache, memory compression
+- **Network** — TCP no delay, Fast Open, RSS, DNS flush, QoS throttle removal
+- **Debloat** — Telemetry, Cortana, Game Bar, animations, mouse acceleration, Superfetch
+- **Power** — Balanced, High Performance, Ultimate Performance (hidden plan)
+- **Latency** — App kill timeout, NTFS optimization, IRQ priority, HPET disable
+- **Game** — Game Mode, MMCSS scheduling, fullscreen optimizations, DWM flush rate
+- **Restore** — One-click revert to Windows defaults
+- **Architecture tweaks** — Intel/AMD CPU and NVIDIA/AMD GPU specific tweaks unlocked at runtime based on detected hardware
 
----
+All tweaks show their current applied state and can be individually reverted.
 
-## 📋 Requirements
+### Dashboard
+Real-time CPU and RAM usage, health score, bottleneck detection, quick stats on applied tweaks, backups, and running processes.
 
-- Windows 10 or Windows 11
-- **Run as Administrator** (required)
-- Internet connection (App Installer only)
-- winget / App Installer (auto-installed if missing)
+### App Installer
+Install common apps via winget (Chocolatey fallback) — browsers, dev tools, gaming launchers, hardware monitors, media, security tools — all in one click.
 
----
+### Services
+Toggle, stop, start and profile Windows services. Includes Gaming and Normal presets, dependency warnings, and a disable-all option.
 
-## ▶️ How to use
+### Process Monitor
+View top processes by RAM usage, tag known bloat automatically, kill individual processes or sweep all bloat in one click.
 
-1. Download `zenith.bat`
-2. **Right-click → Run as administrator**
-3. Choose your language **(EN / PT)**
-4. Create a restore point when prompted *(recommended)*
-5. Pick a module from the main menu
+### Hardware Diagnostics
+Full hardware info cards: CPU, GPU, RAM, Disk, OS, Motherboard, Uptime. Driver version and build info included.
 
-> ⚠️ **Always create a restore point before applying tweaks.**
-> If anything goes wrong, open System Restore and roll back.
+### Driver Info
+Full list of installed drivers with version, date, manufacturer and category. Filter by name, category or manufacturer. Export to CSV.
 
----
+### GPU Health
+GPU name, vendor, driver version and date, VRAM total and free, GPU usage, temperature, core clock, memory clock, fan speed, power draw. Powered by nvidia-smi on NVIDIA systems.
 
-## 🎛️ Modes
+### Full System Latency Checker
+Six-section latency report: timer resolution, DPC heuristic, disk I/O, memory, network ping, DNS resolution. Scored out of 100 with recommendations. Results can be copied or saved to file.
 
-### Safe Mode
-Stable and fully reversible. Sets high performance power plan, disables telemetry, network tweaks, RAM and game priority tuning. Safe for daily use.
+### Benchmarks
+Quick in-app benchmarks: disk write, disk read, RAM throughput, CPU prime sieve, network ping, DNS resolution. History log included.
 
-### Extreme Mode
-Everything in Safe + aggressive services cleanup, ultimate performance power plan, background process killer, visual performance tweaks. More fps, less stability.
-**Not recommended for school or work PCs.**
+### Privacy
+Block telemetry, ads, camera, microphone, location, Cortana, activity feed and Windows Update.
 
----
+### Personalize
+Toggle dark mode, transparency, rounded corners, taskbar items, accent colors, wallpaper, ClearType, animations, AeroPeek, and more — with live preview and Explorer restart.
 
-## 📦 App Installer
+### Startup Manager
+View and disable startup entries from HKCU and HKLM.
 
-Zenith can download and install apps directly using `winget`:
+### Backup & Restore
+Auto registry backup before every apply. Manual backup and Windows restore point creation. Restore from any saved backup.
 
-**Browsers** — Chrome, Firefox, Edge, Brave, Opera GX
-
-**Communication** — Discord, Telegram, WhatsApp
-
-**Gaming** — Steam, Epic Games, Ubisoft Connect, EA App
-
-**Tools** — 7-Zip, VLC, OBS Studio, VS Code, Spotify
+### Script Runner
+Run CMD or PowerShell commands directly with full admin rights from inside VOIDTUNE.
 
 ---
 
-## 🔒 Privacy & Security
+## Requirements
 
-- Disable Microsoft telemetry & tracking
-- Block Windows ads & suggestions
-- Disable camera and microphone app access
-- Disable location tracking
-- Disable Cortana & Bing search
-- Disable automatic Windows updates
+- Windows 10 (Build 19041+) or Windows 11
+- PowerShell 5.1 or newer
+- Administrator privileges (auto-requested on launch)
+- winget (recommended) or Chocolatey for App Installer
 
 ---
 
-## ↩️ Restore / Undo
+## Installation
 
-Changed your mind? Option `[9]` in the main menu restores everything:
-- Balanced power plan restored
-- Services re-enabled
-- Telemetry and Cortana restored
-- Network settings back to default
-- Memory settings and visual effects reverted
+VOIDTUNE does not require installation. Just download and run.
 
----
+**Option A — Run from source**
 
-## ⚠️ Disclaimer
+1. Clone the repository:
+   ```
+   git clone https://github.com/otzpt_dev/voidtune.git
+   ```
+2. Right-click `LAUNCH_VOIDTUNE.bat` → Run as Administrator
 
-> Zenith modifies Windows registry settings, services and system configuration.
-> While everything is reversible, use at your own risk.
-> The author is not responsible for any damage, data loss or system instability.
-> Always create a restore point before applying any tweaks.
+**Option B — Download zip**
 
----
+1. Go to [Releases](https://github.com/otzpt_dev/voidtune/releases)
+2. Download the latest zip and extract it — keep all files and folders together
+3. Right-click `LAUNCH_VOIDTUNE.bat` → Run as Administrator
 
-## 👤 Author
-
-Made by **@otzpt**
+> **Note:** All files (`core\`, `modules\`, `ui\`, `*.xaml`) must stay in the same folder. Do not move files around.
 
 ---
 
-## 🙏 Credits
+## Building the EXE
 
-> Built on top of **Platinum Optimizer** by **@STEFANO83223** & **@Aledect**
-> Heavily modified, extended and rebranded by **@otzpt**
+Requires [ps2exe](https://github.com/MScholtes/PS2EXE):
 
-Original base provided the core tweak logic for CPU, GPU, network and RAM optimizations.
-Everything else — UI, language system, privacy tab, app installer, restore system, bug fixes — built by @otzpt.
+```powershell
+Install-Module ps2exe -Scope CurrentUser
+Invoke-PS2EXE .\VOIDTUNE.ps1 .\VOIDTUNE.exe -noConsole -requireAdmin -title "VOIDTUNE" -version "0.7.0.0"
+```
 
 ---
 
-<div align="center">
+## Contributing
 
-*Your PC has a ceiling. Zenith breaks it.*
+Contributions are welcome. If you want to add tweaks, fix bugs, or improve the UI:
 
-</div>
+1. Fork the repository
+2. Create a branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m "add: your feature"`
+4. Push and open a Pull Request
+
+For new tweaks, add them to `modules/data.ps1` following the existing `[TI]` model. Include a `RevertCmd` wherever possible.
+
+For bug reports, open an issue with your Windows build, hardware info, and the relevant lines from `logs/voidtune_*.log`.
+
+---
+
+## Disclaimer
+
+VOIDTUNE modifies Windows registry entries, services, and system settings. Use at your own risk. Always create a backup or restore point before applying tweaks. The author accepts no responsibility for data loss, system instability, or any other issues arising from use of this software.
+
+---
+
+## License
+
+VOIDTUNE is licensed under the [GNU General Public License v3.0](LICENSE).
+
+You are free to use, modify, and distribute this software under the terms of the GPL v3. Any derivative work must also be distributed under the same license.
+
+Copyright (C) 2026 [@otzpt_dev](https://github.com/otzpt_dev) • [voidtune-optimizer.netlify.app](https://voidtune-optimizer.netlify.app/)

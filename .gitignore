@@ -1,0 +1,18 @@
+# VOIDTUNE .gitignore
+
+# Runtime generated files - do not commit
+voidtune_state.txt
+logs/
+backups/
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Compiled output
+*.exe
+
+# Temp
+*.tmp
+*.bak
